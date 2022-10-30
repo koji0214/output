@@ -16,7 +16,8 @@ class CreateSleepsTable extends Migration
         Schema::create('sleeps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
-            $table->date('date');
+            $table->date('date');  //ユニーク <- created_atから取ればなくてもよいのでは？
+            // ユニークにすると別のIDの人も入力できなくなってしまう
             $table->time('sleep_time');
             $table->timestamps();
         });

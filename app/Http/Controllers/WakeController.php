@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Question;
 
 class WakeController extends Controller
 {
@@ -14,7 +15,17 @@ class WakeController extends Controller
     public function index()
     {
         //
-        return view('wake');
+        $count = \App\Question::count();  //レコード数取得
+        $question = new Question;
+        srand((int)date('Ymd'));  //seedを日付で固定
+        $rand_1 = random_int(1,$count);
+        $rand_2 = random_int(1,$count);
+        $random = $question->find([1,2]);
+        return view('wake')->with(['question' => $question->get(),
+            'incorrect' => $question->get(),
+            'now' => $random,
+            'count' => $count,
+        ]);;
     }
 
     /**
