@@ -35,9 +35,14 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Question $question){
+    public function store(Request $request){
+        $question = new Question;
         $input = $request['question'];
-        $question->fill($input)->save();
+        
+        $question->question = $input["question"];
+        $question->correct = $input["correct"];
+        
+        $question->save();
         return redirect(route('question.index'));
     }
 

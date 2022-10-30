@@ -2,11 +2,11 @@
 
 @section('content')
         <h1>My Page</h1>
-        <a href='{{ route('wake.index')}}'>起床登録</a><br>
+        <a href='{{route('wake.index')}}'>起床登録</a><br>
         
-        <a href='{{ route('home.create')}}'>睡眠ログ</a><br>
+        <a href='{{route('home.create')}}'>睡眠ログ</a><br>
         
-        <a href='{{ route('question.index')}}'>問題確認</a><br>
+        <a href='{{route('question.index')}}'>問題確認</a><br>
         
         <a href='{{route('task.index')}}'>タスク</a><br>
         

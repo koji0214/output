@@ -28,9 +28,9 @@ class HomeController extends Controller
     {
         $task = Task::where('status', false)->get();
         $sleeps = Sleep::orderBy('id', 'DESC')->take(10)->get();  // ユーザーIDでソート
-        
         $times = [];
         
+        // 余裕があったら、reverseを修正する
         foreach($sleeps as $sleep){
             $time = -(strtotime($sleep->sleep_time,strtotime($sleep->created_at))-strtotime($sleep->created_at))/3600;
             array_push($times,$time);
@@ -56,9 +56,6 @@ class HomeController extends Controller
             $time = array_slice($times,-7);
             $time = array_reverse($time);
             
-            // foreach($time2 as $t){
-            //     array_push($ratio, $t/$time[$loop->index]*100);
-            // }
             for($i=0;$i<count($time2);$i++){
                 array_push($ratio, $time2[$i]/$time[$i]*100);
             }
@@ -70,9 +67,8 @@ class HomeController extends Controller
             }
             $times = array_slice($times , 0, 7);    
         }
+        //////ここまで
         
-        // dd($ratio);
-        // dd($times);
         return view('home')->with(['tasks' => $task,
             'sleeps' => $sleeps,
             'time' => $times,
