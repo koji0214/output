@@ -1,0 +1,97 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class SleepsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+        DB::table('sleeps')->insert([
+            [
+                'user_id'=>1,
+                'date'=>20221028,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221029,
+                'sleep_time'=>230000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221030,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221031,
+                'sleep_time'=>235900
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221101,
+                'sleep_time'=>230000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221102,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221103,
+                'sleep_time'=>230000
+            ],[
+                'user_id'=>1,
+                'date'=>20221104,
+                'sleep_time'=>223000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221105,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221106,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221107,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221108,
+                'sleep_time'=>223000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221109,
+                'sleep_time'=>233000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221110,
+                'sleep_time'=>230000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221111,
+                'sleep_time'=>220000
+            ],
+            [
+                'user_id'=>1,
+                'date'=>20221112,
+                'sleep_time'=>220000
+            ],
+        ]);
+    }
+}

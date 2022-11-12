@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>目覚ましソフト</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
         <h1>ToDo投稿</h1>
         <form action="{{route('task.store')}}" method="POST">
             @csrf
@@ -33,5 +26,4 @@
         </form>
         <div class="back"><a href='{{route('task.index')}}'>戻る</a></div>
         <div class="top"><a href='{{route('home.index')}}'>TOPへ</a></div>
-    </body>
-</html>
+@endsection

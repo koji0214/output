@@ -1,15 +1,6 @@
-<html>
-<head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+@extends('layouts.app')
 
-        body {
-            padding: 50px;
-        }
-
-    </style>
-</head>
-<body>
+@section('content')
     <div id="app" class="row">
         <!-- クイズを表示する部分 -->
         <div class="offset-3 col-6" v-if="!completed">
@@ -98,5 +89,4 @@
 
     </script>
     
-</body>
-</html>
+@endsection

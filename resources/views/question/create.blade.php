@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>目覚ましソフト</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
         <h1>問題投稿</h1>
         <form action="{{route('question.store')}}" method="POST">
             @csrf
@@ -21,5 +14,4 @@
             <input type="submit" value="保存"/>
         </form>
         <div class="back"><a href='{{route('question.index')}}'>戻る</a></div>
-    </body>
-</html>
+@endsection

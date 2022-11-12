@@ -1,50 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-        <h1>My Page</h1>
-        <a href='{{route('wake.index')}}'>起床登録</a><br>
-        
-        <a href='{{route('home.create')}}'>睡眠ログ</a><br>
-        
-        <a href='{{route('question.index')}}'>問題確認</a><br>
-        
-        <a href='{{route('task.index')}}'>タスク</a><br>
-        
-        <canvas id="myChart" width="400" height="100"></canvas>
-        
-        
-        <h1>ToDo投稿</h1>
+<div class="container">
+    <h1>My Page</h1>
+    <div class="row">
+        <div class="col">
+            <a href='{{route('wake.index')}}'>起床登録</a>
+        </div>
+        <div class="col">
+            <a href='{{route('home.create')}}'>睡眠ログ</a>
+        </div>
+        <div class="col">
+            <a href='{{route('question.index')}}'>問題確認</a>
+        </div>
+        <div class="col">
+            <a href='{{route('task.index')}}'>タスク</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <h1>ToDo投稿</h1>
+    <div class="input-group">
         <form action="{{route('task.store')}}" method="POST">
             @csrf
-            <div class="task">
-                <h2>タイトル</h2>
-                <input type="text" name="task[task]" placeholder="タイトル"　value="{{ old('task.task') }}"/>
-                @error('task.task')
-                    <div class='mt-3'>
-                        <p class="text-red-500">{{$message}}</p>
+            
+                <div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" name="task[task]" placeholder="何をする？" value="{{ old('task.task') }}"/>
+                            @error('task.task')
+                                <div class='mt-3'>
+                                    <p class="text-red-500">{{$message}}</p>
+                                </div>
+                            @enderror
+                        </div>
+                            
+                    
+                        <div class="col">
+                            <input type="datetime-local" name="task[limit]" value="{{ old('task.limit') }}">
+                            @error('task.limit')
+                                <div class='mt-3'>
+                                    <p class="text-red-500">{{$message}}</p>
+                                </div>
+                            @enderror
+                        </div>
                     </div>
-                @enderror
-                <h2>締切</h2>
-                <input type="datetime-local" name="task[limit]" value="{{ old('task.limit') }}">
-                @error('task.limit')
-                    <div class='mt-3'>
-                        <p class="text-red-500">{{$message}}</p>
+                    <div class="row">
+                        <textarea name="task[memo]" placeholder="メモ" value="{{ old('task.memo') }}"></textarea>
                     </div>
-                @enderror
-                <h2>メモ</h2>
-                <textarea type="datetime-local" name="task[memo]" value="{{ old('task.memo') }}"></textarea>
-            </div>
-            <input type="submit" value="保存"/>
+                
+                    <button type="submit" class="btn btn-outline-secondary">保存</button>
+                </div>
         </form>
+    </div>
+</div>
+    
+<div class="container">
+    <h1>タスク一覧</h1>
+    <div class="container">
         
-        <h1>タスク一覧</h1>
         @if($tasks->isEmpty())
         <p>現在のタスクはありません</p>
         @else
         
-        @foreach ($tasks as $item)
-            <tr>
-                <td class="px-3 py-4 text-sm text-gray-500">
+        <div class="row">
+            @foreach ($tasks as $item)
+                <div class="col-7">
                     <div>
                         {{ $item->task }}
                     </div>
@@ -54,10 +78,11 @@
                     <div>
                         {{ $item->memo }}
                     </div>
-                </td>
-                <td class="p-0 text-right text-sm font-medium">
-                    <div class="flex justify-end">
-                        <div>
+                </div>
+                
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col">
                             <form action="{{ route('task.update', $item->id) }}"
                                 method="post"
                                 class="inline-block text-gray-500 font-medium"
@@ -69,11 +94,11 @@
                                  class="bg-emerald-700 py-4 w-20 text-white md:hover:bg-emerald-800 transition-colors">完了</button>
                             </form>
                         </div>
-                        <div>
+                        <div class="col">
                             <a href="{{ route('task.edit', $item->id) }}"
-                                class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">編集</a>
-                        </div>
-                        <div>
+                            class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">編集</a>
+                        </div>        
+                        <div class="col">
                             <form onsubmit="return deleteTask()"
                                 action="{{ route('task.destroy', $item->id) }}" method="post"
                                 class="inline-block text-gray-500 font-medium"
@@ -85,21 +110,27 @@
                             </form>
                         </div>
                     </div>
-                </td>
-            </tr>
-        @endforeach
+                </div>
+            @endforeach
+        </div>
+            
         @endif
-              
-        </p>
-    <script>
-        function deleteTask() {
-            if (confirm('本当に削除しますか？')) {
-                return true;
-            } else {
-                return false;
-            }
+    </div>
+        
+</div>    
+        
+          
+
+<canvas id="myChart" width="400" height="100"></canvas>
+<script>
+    function deleteTask() {
+        if (confirm('本当に削除しますか？')) {
+            return true;
+        } else {
+            return false;
         }
-    </script>
+    }
+</script>
 
 @endsection
 

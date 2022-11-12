@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
- 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Todo</title>
- 
-    
-</head>
- 
-<body class="flex flex-col min-h-[100vh]">
+@extends('layouts.app')
+
+@section('content')
 
         <h1>ToDo投稿</h1>
         <div class="top"><a href='{{route('home.index')}}'>TOPへ</a></div>
@@ -98,6 +88,4 @@
             }
         }
     </script>
-</body>
- 
-</html>
+@endsection

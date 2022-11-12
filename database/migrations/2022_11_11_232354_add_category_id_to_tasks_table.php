@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionsTable extends Migration
+class AddCategoryIdToTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('question')->unique();
-            $table->text('correct');
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            //
+            $table->integer('task_category_id')->unsigned();
         });
     }
 
@@ -28,6 +26,8 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::table('tasks', function (Blueprint $table) {
+            //
+        });
     }
 }

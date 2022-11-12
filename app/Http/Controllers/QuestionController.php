@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
+use App\QuestionCategory;
 
 class QuestionController extends Controller
 {
@@ -23,10 +24,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(QuestionCategory $category)
     {
         //
-        return view('question.create');
+        return view('question.create')->with(['categories'=>$category->get()]);
     }
 
     /**

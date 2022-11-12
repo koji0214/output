@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Task;
+use App\TaskCategory;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -26,10 +27,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(TaskCategory $category)
     {
         //
-        return view('task.create');
+        return view('task.create')->with(['categories'=>$category->get()]);
     }
 
     /**

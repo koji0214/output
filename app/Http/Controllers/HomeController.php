@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $task = Task::where('status', false)->get();
-        $sleeps = Sleep::orderBy('id', 'DESC')->take(10)->get();  // ユーザーIDでソート
+        $sleeps = Sleep::where('user_id','=',Auth::id())->orderBy('id', 'DESC')->take(14)->get();
         $times = [];
         
         // 余裕があったら、reverseを修正する
