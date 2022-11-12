@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Sleep;
 use Illuminate\Support\Facades\Auth;
 use App\Task;
+use App\Level;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $level = Level::find(1);  //あとで消す
+        // $level = Level::find(Auth::id());
         $task = Task::where('status', false)->get();
         $sleeps = Sleep::where('user_id','=',Auth::id())->orderBy('id', 'DESC')->take(14)->get();
         $times = [];
@@ -73,6 +76,7 @@ class HomeController extends Controller
             'sleeps' => $sleeps,
             'time' => $times,
             'ratio' => $ratio,
+            'level' => $level,
         ]);
     }
     public function create(Request $request){

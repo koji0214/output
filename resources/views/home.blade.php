@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <h1>My Page</h1>
+    <div>現在のレベル：{{ $level->level }}</div>
     <div class="row">
         <div class="col">
             <a href='{{route('wake.index')}}'>起床登録</a>
