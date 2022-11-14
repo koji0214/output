@@ -100,7 +100,7 @@ class HomeController extends Controller
         $sleep->sleep_time = $request->input('time');
         $sleep->save();
         $level = Level::find(Auth::id());
-        $level->level +=100;
+        $level->level +=70;
         $level->save();
         
         return redirect(route('home.index'));

@@ -13,17 +13,21 @@
 
 Auth::routes();
 
-// ログイン画面からホーム画面への遷移
-Route::get('/', 'HomeController@index')->name('home');
+Route::group(['middleware'=>['auth']],function(){
+    // ログイン画面からホーム画面への遷移
+    Route::get('/', 'HomeController@index')->name('home');
+    
+    // 起床管理用
+    Route::resource('wake', 'WakeController');
+    
+    // 問題管理用
+    Route::resource('question', 'QuestionController');
+    
+    // タスク管理用
+    Route::resource('task', 'TaskController');
+    
+    // 起床時間登録
+    Route::resource('home', 'HomeController');
 
-// 起床管理用
-Route::resource('wake', 'WakeController');
-
-// 問題管理用
-Route::resource('question', 'QuestionController');
-
-// タスク管理用
-Route::resource('task', 'TaskController');
-
-// 起床時間登録
-Route::resource('home', 'HomeController');
+});
+    
