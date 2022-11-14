@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Task;
 use App\TaskCategory;
+use App\Level;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -15,11 +16,15 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TaskCategory $category)
     {
         //
-        $task = Task::where('status', false)->get();
-        return view('task.index')->with(['tasks' => $task]);
+        // dd($category);
+        $task = Task::find(Auth::id())->where('status', false)->orderBy('limit')->get();
+        return view('task.index')->with([
+            'tasks' => $task,
+            'categories' => $category->get(),
+        ]);
     }
 
     /**
@@ -54,8 +59,9 @@ class TaskController extends Controller
         $task->task = $request->input('task.task');
         $task->limit = $request->input('task.limit');
         $task->memo = $request->input('task.memo');
+        $task->task_category_id = $request->input('task.category');
         $task->save();
-        return redirect(route('task.index'));
+        return redirect('/');
     }
 
     /**
@@ -109,9 +115,12 @@ class TaskController extends Controller
             $task = Task::find($id);
             //モデル->カラム名 = 値 で、データを割り当てる
             $task->status = true; //true:完了、false:未完了
+            $level = Level::find(Auth::id());
+            $level->level += 30;
+            $level->save();
         }
         $task->save();
-        return redirect(route('task.index'));
+        return redirect('/');
     }
 
     /**
@@ -124,6 +133,6 @@ class TaskController extends Controller
     {
         //
         Task::find($id)->delete();
-        return redirect(route('task.index'));
+        return redirect(route('/'));
     }
 }

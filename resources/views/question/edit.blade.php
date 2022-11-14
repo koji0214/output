@@ -21,6 +21,12 @@
             </div>
             <input type="submit" value="保存"/>
         </form>
+        
+        <form onsubmit="return deleteTask()" action="{{route('question.destroy', $question->id)}}" method='post'>
+            @csrf
+            @method('DELETE')
+            <input type='submit' value="削除"/>
+        </form>
         <div class="back"><a href='{{route('question.index')}}'>戻る</a></div>
     </body>
 </html>

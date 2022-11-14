@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>目覚ましソフト</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <h1>睡眠時間</h1>
-        <form action="{{route('home.store')}}" method="POST">
-            @csrf
-            <div class="sleeptime">
-                <h2>入眠時間</h2>
-                <input type="time" name="time">
-                <input type="submit" value="登録"/>
-        </form>
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <h1>睡眠時間</h1>
+    <form action="{{route('home.store')}}" method="POST">
+        @csrf
+        <h2>入眠時間を入力してください</h2>
+        <div class="input-group mb-3">
+            <input class="form-control" type="time" name="time">
+            <button class="btn btn-outline-secondary" type="submit">登録</button>
+        </div>
+    </form>
+    
         
-        <p>{{$aa}}</p>
-        <div class="top"><a href='/'>TOPへ</a></div>
-    </body>
-</html>
+    <div class="top"><a href='/'>TOPへ</a></div>
+
+
+@endsection

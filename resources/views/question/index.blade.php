@@ -24,7 +24,9 @@
             </div>
         </div>
     @endforeach
-        
+    <div class='paginate'>
+        {{ $question->links() }}
+    </div>
     <a href='{{route('home.index')}}'>TOPへ</a>
 </div>
 @endsection

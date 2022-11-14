@@ -12,5 +12,16 @@ class QuestionCategoriesTableSeeder extends Seeder
     public function run()
     {
         //
+        DB::table('question_categories')->insert([
+            [
+                'category_name'=>'英語'
+            ],
+            [
+                'category_name'=>'プログラミング'
+            ],
+            [
+                'category_name'=>'研究'
+            ],
+        ]);
     }
 }

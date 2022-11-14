@@ -7,6 +7,7 @@ use App\Sleep;
 use Illuminate\Support\Facades\Auth;
 use App\Task;
 use App\Level;
+use App\TaskCategory;
 
 class HomeController extends Controller
 {
@@ -25,11 +26,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(TaskCategory $category)
     {
-        $level = Level::find(1);  //あとで消す
-        // $level = Level::find(Auth::id());
-        $task = Task::where('status', false)->get();
+        // levelの取得
+        $level = Level::find(Auth::id());
+        
+        // タスクの取得（ユーザーのタスクのうち、未完了のものを期日順に5件表示）
+        $task = Task::find(Auth::id())->where('status', false)->orderBy('limit')->limit(5)->get();
+        
+        // 睡眠時間のグラフ可視化のためのデータ取得
         $sleeps = Sleep::where('user_id','=',Auth::id())->orderBy('id', 'DESC')->take(14)->get();
         $times = [];
         
@@ -71,12 +76,15 @@ class HomeController extends Controller
             $times = array_slice($times , 0, 7);    
         }
         //////ここまで
+        // dd($category->get());
+        // dd($task[0]);
         
         return view('home')->with(['tasks' => $task,
             'sleeps' => $sleeps,
             'time' => $times,
             'ratio' => $ratio,
             'level' => $level,
+            'categories'=> $category->get(),
         ]);
     }
     public function create(Request $request){
@@ -91,6 +99,9 @@ class HomeController extends Controller
         $sleep->date = date(now());
         $sleep->sleep_time = $request->input('time');
         $sleep->save();
+        $level = Level::find(Auth::id());
+        $level->level +=100;
+        $level->save();
         
         return redirect(route('home.index'));
     }

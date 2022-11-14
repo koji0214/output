@@ -17,24 +17,25 @@ class WakeController extends Controller
     {
         //
         $count = \App\Question::count();  //レコード数取得
-        // dd($count);
-    // srand((int)date('Ymd'));  //seedを日付で固定
-        $rand_keys = array_rand(range(1, $count), 9);
-        // dd($rand_keys);
-        // dd(range(1,$count));
+        // $rand_keys = array_rand(range(1, $count), 9);
         
-        $rand_keys = array_map(function ($n){
-            return $n+1;
-        }, $rand_keys);
+        // $rand_keys = array_map(function ($n){
+        //     return $n+1;
+        // }, $rand_keys);
+        // // dd($rand_keys);
+        // $question = Question::find($rand_keys);
         
-        $question = Question::find($rand_keys);
-        // dd(($question));
+        $question = Question::inRandomOrder()->take(9)->get();
+        // dd($question);
+        
+        
         $correct_keys = array_rand(range(0,5), 3);
         // dd($correct_keys);
         $questions = [];
         foreach($correct_keys as $i){
-            array_push($questions, $question[$i]->question);
+            array_push($questions, $question[$i]);
         }
+        // dd($question[8]);
         $choice = [];
         for($i=0;$i<9;$i++){
             if(in_array($i, $correct_keys)){
@@ -43,7 +44,7 @@ class WakeController extends Controller
                 array_push($choice,$question[$i]->correct);
             }
         }
-        // dd($choice);
+        
         $answer_id = [];
         $serrect = [];
         for($i=0;$i<3;$i++){
@@ -52,7 +53,7 @@ class WakeController extends Controller
             $choice_ = [];
             for($j=0;$j<3;$j++){
                 if($j == $ans){
-                    array_push($choice_, $questions[$i]);
+                    array_push($choice_, $questions[$i]->correct);
                 }else{
                     if(count($choice_)>1){
                         array_push($choice_, $choice[2*$i+1]);
@@ -64,8 +65,8 @@ class WakeController extends Controller
             array_push($serrect, $choice_);
         }
         
-        // dd($serrect);
         
+        // dd($serrect);
         
         return view('wake')->with(['question' => $questions,
             'choices' => $serrect,

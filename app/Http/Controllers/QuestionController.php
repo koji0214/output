@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Question;
 use App\QuestionCategory;
+use App\Level;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -15,7 +17,7 @@ class QuestionController extends Controller
      */
     public function index(Question $question)
     {
-        return view('question.index')->with(['question' => $question->get()]);;
+        return view('question.index')->with(['question' => $question->getPaginateByLimit()]);;
         //
     }
 
@@ -42,8 +44,11 @@ class QuestionController extends Controller
         
         $question->question = $input["question"];
         $question->correct = $input["correct"];
-        
+        $question->question_category_id = 1;
         $question->save();
+        $level = Level::find(Auth::id());
+        $level->level += 5;
+        $level->save();
         return redirect(route('question.index'));
     }
 
@@ -100,5 +105,7 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+        Question::find($id)->delete();
+        return redirect(route('question.index'));
     }
 }
